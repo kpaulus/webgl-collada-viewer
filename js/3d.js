@@ -1,19 +1,19 @@
 ﻿"use strict";
 
-var file = './collada/house.dae'; // Pfad zum Collada-Modell
-var tilted = false; // Modell um 90 Grad drehen?
-var modelScale = 1; // abhängig von der Größe des Modells
-var cameraPositionZ = 1500; // Abstand der Kamera
-var cameraInitialVector = 30; // je kleiner der Vektor, desto größer erscheint das Modell
-var colorLight = [0xffffff, 0xffffff]; // Farben der beiden Lichter
-var colorBackground = 0xcce0ff; // Hintergrundfarbe
-var dimensions = [window.innerWidth, window.innerHeight]; // Größe der Darstellung
+var file = './collada/house.dae'; // Path to Collada Model
+var tilted = false; // Model rotate 90 degrees?
+var modelScale = 1; // Depends on the size of the model
+var cameraPositionZ = 1500; // Distance of the camera
+var cameraInitialVector = 30; // the smaller the vector, the greater appears the model
+var colorLight = [0xffffff, 0xffffff]; // Colors of the lights
+var colorBackground = 0xcce0ff; // Background Color
+var dimensions = [window.innerWidth, window.innerHeight]; // Size of the display
 var canvasid = '3dmodell'; // Name des Canvas-Containers
-var rotate = [0.0005, 0.01, 0.0005]; // Geschwindigkeit der Animation (X-, Y-, Z-Achse)
-var rotateManual = 0.1; // manuelle Drehung per Tastatur
-var cameraZoom = 1000; // manuelle Änderung der Zoomstufe
-var play = true; // nach dem Laden sofort animieren?
-// ab hier nichts ändern
+var rotate = [0.0005, 0.01, 0]; // Animation Speed (X-, Y-, Z-Axis)
+var rotateManual = 0.1; // manual rotation by keyboard
+var cameraZoom = 1000; // manually change the zoom level
+var play = true; // animation immediately after loading?
+// from here change anything
 
 var camera, scene, renderer, dae, skin, lastFrame;
 window.addEventListener('load', function() {
@@ -21,19 +21,19 @@ window.addEventListener('load', function() {
 
  // Collada-Modell
  var loader = new THREE.ColladaLoader();
- if (tilted) loader.options.upAxis = 'X'; // Drehung um 90 Grad
- loader.options.convertUpAxis = true; // an der Y-Achse ausrichten
+ if (tilted) loader.options.upAxis = 'X'; // Rotation by 90 degrees
+ loader.options.convertUpAxis = true; // align the Y-Axis
  loader.load(file, function (collada) {
   dae = collada.scene;
   dae.scale.x = dae.scale.y = dae.scale.z = modelScale;
-  scene = new THREE.Scene(); // initiiert die Szene
+  scene = new THREE.Scene(); // initiated the scene
   scene.add(dae);
 
-  // Kamera
+  // Camera
   camera = new THREE.PerspectiveCamera(cameraInitialVector, dimensions[0]/dimensions[1], 1, 10000);
   camera.position.z = cameraPositionZ;
 
-  // Lichter
+  // Lightening
   var directionalLight1 = new THREE.DirectionalLight(colorLight[0], 1.0);
   directionalLight1.position.set(1, 0, 0);
   var directionalLight2 = new THREE.DirectionalLight(colorLight[1], 2.0);
@@ -45,14 +45,14 @@ window.addEventListener('load', function() {
   renderer = new THREE.WebGLRenderer({antialias: true});
   renderer.setClearColor(colorBackground);
   renderer.setSize(dimensions[0], dimensions[1]);
-  // verankere Darstellung im HTML
+  // Representation in HTML
   document.getElementById(canvasid).appendChild(renderer.domElement);
   animate();
  });
 
  var animate = function() {
-  requestAnimationFrame(animate); // Animationsschleife
-  if (play) { // Drehen, wenn Play-Status == true
+  requestAnimationFrame(animate); // Animation Loop
+  if (play) { // Turning when Play-Status == true
    dae.rotation.x += rotate[0];
    dae.rotation.y += rotate[1];
    dae.rotation.z += rotate[2];
@@ -60,7 +60,7 @@ window.addEventListener('load', function() {
   renderer.render(scene, camera);
  };
 
- // Tastenkürzel abfragen
+ // Check Keyboard Shortcuts
  window.addEventListener('keydown', function(e) {
   var key = e.keyCode;
   console.log("Key " + key);
@@ -105,3 +105,4 @@ window.addEventListener('load', function() {
   renderer.render(scene, camera);
  }, false);
 }, false);
+
