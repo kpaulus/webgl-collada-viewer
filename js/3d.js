@@ -1,17 +1,17 @@
 ﻿"use strict";
 
-var file = './collada/getriebe.dae'; // Pfad zum Collada-Modell
-var tilted = true; // Modell um 90 Grad drehen?
-var modelScale = 10; // abhängig von der Größe des Modells
+var file = './collada/house.dae'; // Pfad zum Collada-Modell
+var tilted = false; // Modell um 90 Grad drehen?
+var modelScale = 1; // abhängig von der Größe des Modells
 var cameraPositionZ = 1500; // Abstand der Kamera
 var cameraInitialVector = 30; // je kleiner der Vektor, desto größer erscheint das Modell
-var colorLight = [0xffffaa, 0xffffaa]; // Farben der beiden Lichter
-var colorBackground = 0x000000; // Hintergrundfarbe
+var colorLight = [0xffffff, 0xffffff]; // Farben der beiden Lichter
+var colorBackground = 0xcce0ff; // Hintergrundfarbe
 var dimensions = [window.innerWidth, window.innerHeight]; // Größe der Darstellung
 var canvasid = '3dmodell'; // Name des Canvas-Containers
 var rotate = [0.0005, 0.01, 0.0005]; // Geschwindigkeit der Animation (X-, Y-, Z-Achse)
 var rotateManual = 0.1; // manuelle Drehung per Tastatur
-var cameraZoom = 50; // manuelle Änderung der Zoomstufe
+var cameraZoom = 1000; // manuelle Änderung der Zoomstufe
 var play = true; // nach dem Laden sofort animieren?
 // ab hier nichts ändern
 
